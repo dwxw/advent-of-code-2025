@@ -25,20 +25,25 @@ export function day1Part2(input: string[]) {
   let dial = 50;
   let zeros = 0;
   rotations.forEach(([direction, distance]) => {
+    // rotations
+    while (distance > 100) {
+      zeros += 1;
+      distance -= 100;
+    }
     if (direction === "L") {
-      if (dial && (dial - distance) < 0) {
-        const r = ((distance) / 100) + 1;
-        const r1 = Math.floor(r);
-        const r2 = Math.abs(r1);
-        zeros += r2;
+      // cross zero
+      if (dial && (dial - distance < 0)) {
+        zeros += 1;
       }
       dial -= distance;
     } else if (direction === "R") {
-      if (dial && (dial + distance) > 100) {
-        zeros += Math.abs(Math.floor((distance) / 100)) + 1;
+      // cross zero
+      if ((dial + distance > 100)) {
+        zeros += 1;
       }
       dial += distance;
     }
+    // resting on zero
     dial = ((dial % 100) + 100) % 100;
     if (dial === 0) {
       zeros++;
