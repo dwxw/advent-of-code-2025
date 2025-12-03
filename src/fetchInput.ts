@@ -3,7 +3,7 @@ import { config } from "dotenv";
 // Load environment variables from the .env file
 const env = config();
 
-export const fetchInput = async (day: number) => {
+export const fetchInput = async (day: number, splitOn: string = "\n") => {
   const response = await fetch(
     `https://adventofcode.com/2025/day/${day}/input`,
     {
@@ -13,7 +13,7 @@ export const fetchInput = async (day: number) => {
     },
   );
   const raw = await response.text();
-  return raw.trim().split("\n");
+  return raw.trim().split(splitOn);
 };
 
 export const fetchInputNoSplit = async (day: number) => {
