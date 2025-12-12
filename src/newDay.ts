@@ -48,7 +48,19 @@ if (import.meta.main) {
 }
 
 if (import.meta.main) {
-  const today = new Date();
-  const day = today.getDate();
+  const dayArg = Deno.args[0];
+  let day: number;
+
+  if (dayArg) {
+    day = parseInt(dayArg, 10);
+    if (isNaN(day)) {
+      console.error("Invalid day provided. Please provide a number.");
+      Deno.exit(1);
+    }
+  } else {
+    const today = new Date();
+    day = today.getDate();
+  }
+
   newDay(day);
 }
