@@ -28,3 +28,16 @@ export const fetchInputNoSplit = async (day: number) => {
   const raw = await response.text();
   return raw.trim();
 };
+
+export const fetchInputNoTrim = async (day: number, splitOn: string = "\n") => {
+  const response = await fetch(
+    `https://adventofcode.com/2025/day/${day}/input`,
+    {
+      headers: {
+        cookie: `session=${env.SESSION_COOKIE}`,
+      },
+    },
+  );
+  const raw = await response.text();
+  return raw.split(splitOn);
+};
